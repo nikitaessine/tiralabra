@@ -1,0 +1,5 @@
+# Tiralabra
+
+Tämä on Tietorakenteet ja algoritmit harjoitustyö. Projektin idea on luoda labyrintti ja verrata kahta algoritmia.
+Labyrinti luomisessa käytetään Primin algoritmia ja verrattavat algoritmit ovat IDA* vs Djikstra.
+Projektin ohjelmointikieli on Python.  
