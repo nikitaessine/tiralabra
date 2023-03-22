@@ -12,6 +12,4 @@ class Labyrintinluonti():
         lista = [["#" for j in range(self.leveys)] for i in range(self.korkeus)]
 
         for i in lista:
-            print(i)
-
-
+            print()
