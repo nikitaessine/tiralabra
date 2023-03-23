@@ -29,6 +29,10 @@ class Labyrintinluonti():
 
     def luo(self,x,y):
         """Metodi, joka luo labyrintin
+
+        Args:
+            x: ruudun x-koordinaatti
+            y: ruudun y-koordinaatti
         """
 
         
@@ -55,7 +59,15 @@ class Labyrintinluonti():
             self.luo(seuraava_seina[0], seuraava_seina[1])
     
     def naapurit(self, x, y):
-        
+        """Metodi, joka etsii ruudun naapurit
+
+        Args:
+            x:ruudun x-koordinaatti
+            y: ruudun y-koordinaatti
+
+        Returns:
+            list: oikeista naapureista
+        """
 
         lista_naapureista = [(x, y-1), (x, y+1), (x+1, y), (x-1, y)]
         random.shuffle(lista_naapureista)
@@ -72,6 +84,8 @@ class Labyrintinluonti():
         return valid_naapurit
 
     def maali_piste(self):
+        """Metodi, joka arpoo päätepisteen
+        """
         loppu_piste = random.randint(1, self.leveys-2)
         for i in range(self.korkeus-2, 1, -1):
             if self.ruudukko[i][loppu_piste] == ".":
@@ -81,6 +95,12 @@ class Labyrintinluonti():
 
 
     def palauta(self):
+        """Metodi palauttaa valmiin labyrintin
+
+        Returns:
+            list: valmis labyrintti
+        """
+
         self.luo(self.aloitus_x, self.aloitus_y)
         self.maali_piste()
 
