@@ -9,7 +9,10 @@ def main():
     aloitus_y = int(input("Anna aloitus y-koordinaatti"))
 
     labyrintti_olio = Labyrintti(leveys, korkeus, aloitus_x, aloitus_y)
-    Labyrintinluonti.luo(labyrintti_olio)
+    labyrintti = Labyrintinluonti(labyrintti_olio).palauta()
+
+    for i in labyrintti:
+        print(i)
 
 if __name__ == "__main__":
     main()
