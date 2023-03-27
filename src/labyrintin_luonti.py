@@ -89,7 +89,7 @@ class Labyrintinluonti():
         loppu_piste = random.randint(1, self.leveys-2)
         for i in range(self.korkeus-2, 1, -1):
             if self.ruudukko[i][loppu_piste] == ".":
-                self.ruudukko[i][loppu_piste+1] = "."
+                self.ruudukko[i][loppu_piste+1] = "L"
                 return
 
 
