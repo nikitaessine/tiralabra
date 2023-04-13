@@ -36,5 +36,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run tests
       run: pytest
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Coverage report
+      run: poetry run coverage xml
+    - name: Coverage report to Codecov
+      run: bash <(curl -s https://codecov.io/bash)
