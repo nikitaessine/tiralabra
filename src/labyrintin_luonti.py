@@ -25,8 +25,6 @@ class Labyrintinluonti():
         self.ruudukko = [["#" for j in range(self.leveys)] for i in range(self.korkeus)]
         self.kaydyt_ruudut = [[0 for j in range(self.leveys)] for i in range(self.korkeus)]
 
-        
-
     def luo(self,x,y):
         """Metodi, joka luo labyrintin
 
