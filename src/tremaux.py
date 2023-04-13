@@ -1,11 +1,11 @@
 from labyrintti import Labyrintti
 
 class TremauxSolver:
-    """Luokka, joka ratkaisee sokkelon Tremaux'n algoritmilla."""
+    """Luokka, joka ratkaisee labyrintin Tremaux'n algoritmilla."""
     def __init__(self, labyrintti, aloitus:Labyrintti):
-        """TremauxRatkaisija-luokan konstruktori.
+        """Luokan konstruktori.
         Args:
-        sokkelo: Lista listoja, joka edustaa sokkeloa.
+        labyrintti: Lista listoja, joka edustaa sokkeloa.
         """
         self.labyrintti = labyrintti
         self.vierailtu = []
@@ -14,7 +14,7 @@ class TremauxSolver:
         self.aloitus_y = aloitus.aloitus_y
             
     def ratkaisu(self):
-        """Ratkaistaan sokkelo Tremaux'n algoritmilla ja palautetaan kuljettu polku."""
+        """Ratkaistaan labyrintti ja palautetaan kuljettu polku."""
 
         aloitus = self.hae_alku()
         self.polku.append(aloitus)
@@ -38,9 +38,9 @@ class TremauxSolver:
         return (self.aloitus_x, self.aloitus_y)
 
     def hae_vierailtavat_naapurit(self, ruutu):
-        """Etsitään labyrintin solmun vierailtavat naapurit.
+        """Etsitään nykyisen ruudun vierailtavat naapurit.
 
-        Args: ruutu: nykyinen solmu
+        Args: ruutu: nykyinen ruutu
         """
         naapurit = []
         rivi, sarake = ruutu
