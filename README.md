@@ -1,5 +1,10 @@
 # tiralabra
-test
+
+## Käyttöohje
+Kloonaa projekti koneellesi. Asenna poetrylla riippuvuudet. Aja juurihakemistossa 
+```bash
+python3 src/main.py
+```
 
 ![CI badge](https://github.com/nikitaessine/tiralabra/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/nikitaessine/tiralabra/branch/main/graph/badge.svg?token=P9H0FWJAVN)](https://codecov.io/gh/nikitaessine/tiralabra)
