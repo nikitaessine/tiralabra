@@ -58,11 +58,14 @@ class DeadEndFilling:
                 x: ruudun rivikoordinaatti
                 y: ruudun sarakekoordinaatti
         """
-        naapurit = self.naapurit(x, y)
-        while len(naapurit) == 1:
-            self.labyrintti[x][y] = "#" 
-            x, y = naapurit[0]
+        while True:
+            self.labyrintti[x][y] = "#"
             naapurit = self.naapurit(x, y)
+            if len(naapurit) == 1:
+                x, y = naapurit[0]
+            else:
+                break
+
         
 
 
