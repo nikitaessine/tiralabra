@@ -29,3 +29,7 @@ Testissä test_naapurit() varmistetaan, että naapuriruudut lasketaan oikein. Me
 test_ruudun_koordinaatti()
 
 Testissä test_ruudun_koordinaatti() varmistetaan, että ruudun koordinaatti lasketaan oikein. Metodissa testataan kahta ruutua, joista toinen on .-merkillä merkitty käytävä ja toinen #-merkillä merkitty seinä.
+
+
+# Kattavuusraportti
+![coverage](https://github.com/nikitaessine/tiralabra/blob/main/dokumentaatio/coverage.png)
