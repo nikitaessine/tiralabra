@@ -11,8 +11,9 @@ class TestLabyrintti(unittest.TestCase):
     
     def test_aloitusruutu_oikein(self):
         self.labyrintti.luo(0, 0)
-        self.assertEqual(self.labyrintti.ruudukko[0][0], ".")
+        self.assertEqual(self.labyrintti.ruudukko[0][0], "A")
 
     def test_palauta_labyrintti(self):
         self.labyrintti.palauta()
-        self.assertEqual(self.labyrintti.ruudukko[0][0], ".")
+        self.assertEqual(self.labyrintti.ruudukko[0][0], "A")
+        
