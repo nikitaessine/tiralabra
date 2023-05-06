@@ -32,15 +32,20 @@ class Labyrintinluonti():
             x: ruudun x-koordinaatti
             y: ruudun y-koordinaatti
         """
-
+        start = None
+        self.ruudukko[x][y] = 'A'
         
+        if x == 0 and y == 0:
+            start = (x, y)
+            self.ruudukko[x][y] = 'A'
+        else:
+            self.ruudukko[x][y] = '.'
 
         if self.kaydyt_ruudut[x][y] == 1:
             return
-        
+            
         seina = self.naapurit(x,y)
         self.kaydyt_ruudut[x][y] = 1
-        self.ruudukko[x][y] = '.'
 
         for i in seina:
             if i in self.seinat:
@@ -55,7 +60,10 @@ class Labyrintinluonti():
             seuraava_seina = random.choice(self.seinat)
             self.seinat.remove(seuraava_seina)
             self.luo(seuraava_seina[0], seuraava_seina[1])
-    
+            
+        if start:
+            self.ruudukko[start[0]][start[1]] = 'A'
+
     def naapurit(self, x, y):
         """Metodi, joka etsii ruudun naapurit
 
