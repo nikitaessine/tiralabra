@@ -11,6 +11,9 @@ def main():
     aloitus_x = int(input("Anna aloitus x-koordinaatti"))
     aloitus_y = int(input("Anna aloitus y-koordinaatti"))
 
+    if (aloitus_x > leveys) or (aloitus_y > korkeus):
+        raise ValueError('Anna ruudukon mukainen koordinaatti!')
+
     labyrintti_olio = Labyrintti(leveys, korkeus, aloitus_x, aloitus_y)
     labyrintti = Labyrintinluonti(labyrintti_olio).palauta()
 
