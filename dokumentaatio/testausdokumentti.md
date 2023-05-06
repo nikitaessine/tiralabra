@@ -16,16 +16,3 @@ Testissä test_aloitusruutu_oikein() varmistetaan, että labyrintin aloitusruutu
 test_palauta_labyrintti()
 
 Testissä test_palauta_labyrintti() varmistetaan, että palautetussa labyrintissa aloitusruutu on oikein. Metodissa luodaan labyrintti, jossa aloitusruutu on vasemmassa yläkulmassa. Tämän jälkeen labyrintti palautetaan ja testataan, että ruudukon ensimmäinen ruutu on piste, joka symboloi aloitusruutua.
-
-## Testit luokalle DeadEndFilling
-setUp()
-
-Metodissa setUp() määritellään labyrintti listana. Listassa on #-merkeillä merkittyjä seiniä ja .-merkeillä merkittyjä käytäviä. Tämä labyrintti on tarkoitettu testattavaksi DeadEndFilling-luokalla.
-
-test_naapurit()
-
-Testissä test_naapurit() varmistetaan, että naapuriruudut lasketaan oikein. Metodissa testataan kahta ruutua, joista toisessa on kaksi naapuriruutua ja toisessa ei ole naapuriruutuja.
-
-test_ruudun_koordinaatti()
-
-Testissä test_ruudun_koordinaatti() varmistetaan, että ruudun koordinaatti lasketaan oikein. Metodissa testataan kahta ruutua, joista toinen on .-merkillä merkitty käytävä ja toinen #-merkillä merkitty seinä.
