@@ -2,17 +2,29 @@ from labyrintti import Labyrintti
 
 class TremauxSolver:
     """Luokka, joka ratkaisee labyrintin Tremaux'n algoritmilla."""
-    def __init__(self, labyrintti, aloitus:Labyrintti):
+    def __init__(self, aloitus:Labyrintti):
         """Luokan konstruktori.
         Args:
         labyrintti: Lista listoja, joka edustaa sokkeloa.
         """
-        self.labyrintti = labyrintti
+        self.labyrintti =  [['A', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+                            ['#', '#', '.', '#', '#', '.', '#', '#', '.', '#'],
+                            ['#', '.', '.', '.', '#', '.', '.', '.', '#', '#'],
+                            ['#', '.', '#', '.', '.', '.', '#', '.', '#', '#'],
+                            ['#', '.', '#', '#', '#', '#', '#', '.', '#', '#'],
+                            ['#', '.', '.', '.', '.', '#', '.', '.', '.', '#'],
+                            ['#', '#', '#', '.', '#', '#', '#', '#', 'L', '#'],
+                            ['#', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+                            ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']
+                            ]
+
+
         self.vierailtu = []
         self.polku = []
         self.aloitus_x = aloitus.aloitus_x
         self.aloitus_y = aloitus.aloitus_y
-            
+     
     def ratkaisu(self):
         """Ratkaistaan labyrintti ja palautetaan kuljettu polku."""
 
@@ -29,9 +41,31 @@ class TremauxSolver:
                     self.vierailtu.append(seuraava_ruutu)
                     self.polku.append(seuraava_ruutu)
                     if self.on_loppu(seuraava_ruutu):
+                        print('polku', self.polku)
                         return self.polku
             else:
                 self.polku.pop()
+    
+    def polun_visualisointi(self):
+        """Visualisoidaan polku askel askeleelta
+
+        Returns:
+            merkkijono: ruudukko_str
+        """
+        max_x = max(koordinaatti[0] for koordinaatti in self.polku)
+        max_y = max(koordinaatti[1] for koordinaatti in self.polku)
+        
+
+        ruudukko = [['#'] * (max_x+2) for _ in range(max_y+2)]
+        
+        askeleet = 0
+        for x, y in self.polku:
+            askeleet += 1
+            ruudukko[x][y] = '.'
+            ruudukko_str = '\n'.join(''.join(rivi) for rivi in ruudukko)
+            print(f"Askel {askeleet}:\n{ruudukko_str}")
+       
+        return ruudukko_str
 
     def hae_alku(self):
         """Etsitään aloitusruutu labyrintista."""
