@@ -18,14 +18,15 @@ def main():
     labyrintti = Labyrintinluonti(labyrintti_olio).palauta()
 
     dead_end_filling_polku = DeadEndFilling(labyrintti)
-    tremaux_polku = TremauxSolver(labyrintti, labyrintti_olio)
-
-    for i in labyrintti:
-        print(i)
+    tremaux_polku = TremauxSolver(labyrintti_olio)
 
     valinta = int(input("Haluatko ratkaista labyrintti dead-end filling algoritmilla vai Tremaux algoritmilla? (DEF(1),Tremaux(2),molemmat(3)"))
     
     if valinta == 1:
+
+        laby1 = '\n'.join(''.join(row) for row in labyrintti)
+
+        print(laby1)
 
         alku = datetime.datetime.now()
         dead_end_filling_polku.dead_endit()
@@ -37,6 +38,12 @@ def main():
         alku2 = datetime.datetime.now()
         tremaux_polku.ratkaisu()
         loppu2 = datetime.datetime.now()
+
+        laby = '\n'.join(''.join(row) for row in tremaux_polku.labyrintti)
+
+        print(laby)
+
+        print(tremaux_polku.polun_visualisointi())
 
         print(f'Aikaa kului tremaux algoritmilla: {loppu2-alku2} sekunttia')
     
