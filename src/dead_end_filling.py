@@ -1,4 +1,4 @@
-import datetime
+import random
 
 class DeadEndFilling:
     """Luokka, joka löytää reitin labyrintissä Dead-end filling algoritmia käyttäen"""
@@ -39,7 +39,6 @@ class DeadEndFilling:
                 if self.labyrintti[i][j] == ruutu:
                     return i, j
 
-
     def dead_endit(self):
         """Metodi, joka löytää kaikki dead endit"""
 
@@ -49,7 +48,8 @@ class DeadEndFilling:
                     i, j = self.ruudun_koordinaatti(n)
                     naapurit = self.naapurit(i, j)
                     if len(naapurit) == 1:
-                        self.seinien_laitto(i, j)
+                        if self.labyrintti[1][1] != '#' or self.labyrintti[-2][-2] != '#':
+                            self.seinien_laitto(i, j)
 
 
     def seinien_laitto(self, x, y):
@@ -66,8 +66,3 @@ class DeadEndFilling:
             else:
                 break
 
-        
-
-
-
-       
