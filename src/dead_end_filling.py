@@ -67,7 +67,7 @@ class DeadEndFilling:
             rivi: rivin indeksi aloitusruudulle.
             sarake: sarakkeen indeksi aloitusruudulle.
         """
-        viereiset_ruudut = self.hae_viereiset_ruudut(rivi, sarake)
+        viereiset_ruudut = self.naapurit(rivi, sarake)
         if len(viereiset_ruudut) == 1:
             self.labyrintti[rivi][sarake] = '#'
             self.seinien_laitto(viereiset_ruudut[0][0], viereiset_ruudut[0][1])
