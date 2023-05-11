@@ -29,8 +29,8 @@ def main():
         
         if valinta == 2:
 
-            aloitus_x = int(input("Anna aloitus x-koordinaatti"))
-            aloitus_y = int(input("Anna aloitus y-koordinaatti"))
+            aloitus_x = int(input("Anna aloitus x-koordinaatti: "))
+            aloitus_y = int(input("Anna aloitus y-koordinaatti: "))
 
             tremaux_polku = TremauxSolver(aloitus_x,aloitus_y)
 
