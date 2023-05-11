@@ -40,7 +40,7 @@ class TremauxSolver:
                     self.vierailtu.append(seuraava_ruutu)
                     self.polku.append(seuraava_ruutu)
                     if self.on_loppu(seuraava_ruutu):
-                        #print('polku', self.polku)
+                        print('polku', self.polku)
                         return self.polku
             else:
                 self.polku.pop()
