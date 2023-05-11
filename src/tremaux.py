@@ -1,20 +1,18 @@
-from labyrintti import Labyrintti
-
 class TremauxSolver:
     """Luokka, joka ratkaisee labyrintin Tremaux'n algoritmilla."""
-    def __init__(self, aloitus:Labyrintti):
+    def __init__(self, aloitus_x, aloitus_y):
         """Luokan konstruktori.
         Args:
         labyrintti: Lista listoja, joka edustaa sokkeloa.
         """
-        self.labyrintti =  [['A', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+        self.labyrintti =  [['.', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                             ['.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
                             ['#', '#', '.', '#', '#', '.', '#', '#', '.', '#'],
                             ['#', '.', '.', '.', '#', '.', '.', '.', '#', '#'],
                             ['#', '.', '#', '.', '.', '.', '#', '.', '#', '#'],
                             ['#', '.', '#', '#', '#', '#', '#', '.', '#', '#'],
-                            ['#', '.', '.', '.', '.', '#', '.', '.', '.', '#'],
-                            ['#', '#', '#', '.', '#', '#', '#', '#', 'L', '#'],
+                            ['#', '.', '.', '.', '.', '#', '.', '.', 'L', '#'],
+                            ['#', '#', '#', '.', '#', '#', '#', '#', '.', '#'],
                             ['#', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
                             ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']
                             ]
@@ -22,14 +20,15 @@ class TremauxSolver:
 
         self.vierailtu = []
         self.polku = []
-        self.aloitus_x = aloitus.aloitus_x
-        self.aloitus_y = aloitus.aloitus_y
+        self.aloitus_x = aloitus_x
+        self.aloitus_y = aloitus_y
+        self.aloitus_koord = aloitus_x, aloitus_y
      
     def ratkaisu(self):
         """Ratkaistaan labyrintti ja palautetaan kuljettu polku."""
 
         aloitus = self.hae_alku()
-        self.polku.append(aloitus)
+        self.polku.append(self.aloitus_koord)
         self.vierailtu.append(aloitus)
 
         while self.polku:
@@ -41,7 +40,7 @@ class TremauxSolver:
                     self.vierailtu.append(seuraava_ruutu)
                     self.polku.append(seuraava_ruutu)
                     if self.on_loppu(seuraava_ruutu):
-                        print('polku', self.polku)
+                        #print('polku', self.polku)
                         return self.polku
             else:
                 self.polku.pop()
