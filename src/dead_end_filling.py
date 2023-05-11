@@ -1,16 +1,29 @@
-import random
-
 class DeadEndFilling:
-    """Luokka, joka löytää reitin labyrintissä Dead-end filling algoritmia käyttäen"""
-    def __init__(self, labyrintti):
-        """Luokan konstruktori, joka alustaa parametrina saamansa labyrintin
+    """Luokka, joka hakee reitin labyrintissa Dead-end filling-algoritmilla"""
+    def __init__(self):
+        """Luokan konstruktori
+
             Args:
-                labyrintti: luotu labyrintti
+                labyrintti: matriisi ratkaistavasta labyrintista
         """
-        self.labyrintti = labyrintti
+        self.labyrintti = [['#', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', '.', '.', '.', '.', '#', '.', '#', '.', '.', '.', '#', '.', '.', '#'],
+                            ['#', '.', '#', '.', '#', '#', '.', '.', '.', '#', '.', '.', '#', '.', '#'],
+                            ['#', '.', '#', '.', '.', '.', '.', '#', '.', '#', '.', '#', '.', '.', '#'],
+                            ['#', '.', '#', '#', '.', '#', '#', '.', '#', '#', '.', '.', '.', '#', '#'],
+                            ['#', '.', '.', '#', '.', '.', '.', '.', '.', '.', '#', '#', '.', '.', '#'],
+                            ['#', '.', '#', '.', '#', '.', '#', '.', '#', '.', '.', '#', '#', '.', '#'],
+                            ['#', '#', '.', '.', '.', '.', '.', '#', '.', '#', '#', '.', '.', '.', '#'],
+                            ['#', '#', '.', '#', '#', '.', '#', '.', '.', '.', '.', '#', '.', '#', '#'],
+                            ['#', '.', '#', '.', '.', '.', '.', '.', '#', '.', '#', '#', '#', '#', '#'],
+                            ['#', '.', '.', '.', '#', '.', '#', '#', '.', '#', '.', '#', '.', '#', '#'],
+                            ['#', '#', '.', '#', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.', '#'],
+                            ['#', '.', '.', '#', '#', '.', '.', '.', '#', '.', '#', '.', '#', '#', '#'],
+                            ['#', '#', '.', '.', '.', '#', '.', '#', '.', '.', '#', '.', '.', '.', '.'],
+                            ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#']]
 
 
-    def naapurit(self, x, y):
+    def naapurit(self, rivi, sarake):
         """Metodi, joka etsii ruudun naapurit
 
         Args:
@@ -20,49 +33,44 @@ class DeadEndFilling:
         Returns:
             list: naapureista, jossa on "."
         """
-        naapurit = []
-        for i, j in [(x, y-1), (x, y+1), (x+1, y), (x-1, y)]:
-            if 0 <= i < len(self.labyrintti) and 0 <= j < len(self.labyrintti) and self.labyrintti[i][j] == '.':
-                naapurit.append((i, j))
-        return naapurit
-
-
-    def ruudun_koordinaatti(self, ruutu):
-        """Metodi, joks joka löytää sen hetkisen ruudun koordinsstit
-
-            Args:
-                ruutu: tän hetkinen ruutu
-        """
-
-        for i in range(len(self.labyrintti)):
-            for j in range(len(self.labyrintti[0])):
-                if self.labyrintti[i][j] == ruutu:
-                    return i, j
+        viereiset_ruudut = []
+        n_rivit, n_sarakkeet = len(self.labyrintti), len(self.labyrintti[0])
+        if rivi > 0 and self.labyrintti[rivi-1][sarake] != '#':
+            viereiset_ruudut.append((rivi-1, sarake))
+        if rivi < n_rivit-1 and self.labyrintti[rivi+1][sarake] != '#':
+            viereiset_ruudut.append((rivi+1, sarake))
+        if sarake > 0 and self.labyrintti[rivi][sarake-1] != '#':
+            viereiset_ruudut.append((rivi, sarake-1))
+        if sarake < n_sarakkeet-1 and self.labyrintti[rivi][sarake+1] != '#':
+            viereiset_ruudut.append((rivi, sarake+1))
+        return viereiset_ruudut
 
     def dead_endit(self):
         """Metodi, joka löytää kaikki dead endit"""
 
-        for k in self.labyrintti[1:-1]:
-            for n in k[1:-1]:
-                if n == '.':
-                    i, j = self.ruudun_koordinaatti(n)
-                    naapurit = self.naapurit(i, j)
-                    if len(naapurit) == 1:
-                        if self.labyrintti[1][1] != '#' or self.labyrintti[-2][-2] != '#':
-                            self.seinien_laitto(i, j)
-
-
-    def seinien_laitto(self, x, y):
-        """Metodi, joka laittaa seinät labyrinttiin, kunnes vastaan tulee polku
-            Args:
-                x: ruudun rivikoordinaatti
-                y: ruudun sarakekoordinaatti
-        """
         while True:
-            self.labyrintti[x][y] = "#"
-            naapurit = self.naapurit(x, y)
-            if len(naapurit) == 1:
-                x, y = naapurit[0]
-            else:
+            muutettu = False
+            for rivi in range(1, len(self.labyrintti)-1):
+                for sarake in range(1, len(self.labyrintti[0])-1):
+                    if self.labyrintti[rivi][sarake] == '.':
+                        viereiset_ruudut = self.naapurit(rivi, sarake)
+                        if len(viereiset_ruudut) == 1:
+                            self.labyrintti[rivi][sarake] = '#'
+                            muutettu = True
+            if not muutettu:
                 break
 
+    def seinien_laitto(self, rivi, sarake):
+        """Täyttää labyrintin umpikujat rekursiivisesti seinillä, kunnes polkuun päästään.
+
+        Args:
+            rivi: rivin indeksi aloitusruudulle.
+            sarake: sarakkeen indeksi aloitusruudulle.
+        """
+        viereiset_ruudut = self.hae_viereiset_ruudut(rivi, sarake)
+        if len(viereiset_ruudut) == 1:
+            self.labyrintti[rivi][sarake] = '#'
+            self.seinien_laitto(viereiset_ruudut[0][0], viereiset_ruudut[0][1])
+
+
+    
