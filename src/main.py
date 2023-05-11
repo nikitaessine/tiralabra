@@ -1,5 +1,3 @@
-from labyrintti import Labyrintti
-from labyrintin_luonti import Labyrintinluonti
 from dead_end_filling import DeadEndFilling
 from tremaux import TremauxSolver
 import datetime
