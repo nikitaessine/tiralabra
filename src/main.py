@@ -6,59 +6,50 @@ import datetime
 
 def main():
 
-    korkeus = int(input("Anna korkeus: "))
-    leveys = int(input("Anna leveys: "))
-    aloitus_x = int(input("Anna aloitus x-koordinaatti"))
-    aloitus_y = int(input("Anna aloitus y-koordinaatti"))
 
-    if (aloitus_x > leveys) or (aloitus_y > korkeus):
-        raise ValueError('Anna ruudukon mukainen koordinaatti!')
+    while True:
+        valinta = int(input("Haluatko ratkaista labyrintti dead-end filling algoritmilla vai Tremaux algoritmilla? (DEF(1),Tremaux(2), lopeta(0)"))
+        
+        if valinta == 1:
 
-    labyrintti_olio = Labyrintti(leveys, korkeus, aloitus_x, aloitus_y)
-    labyrintti = Labyrintinluonti(labyrintti_olio).palauta()
+            dead_end_filling_polku = DeadEndFilling()
 
-    dead_end_filling_polku = DeadEndFilling(labyrintti)
-    tremaux_polku = TremauxSolver(labyrintti_olio)
+            laby1 = '\n'.join(''.join(row) for row in dead_end_filling_polku.labyrintti)
 
-    valinta = int(input("Haluatko ratkaista labyrintti dead-end filling algoritmilla vai Tremaux algoritmilla? (DEF(1),Tremaux(2),molemmat(3)"))
-    
-    if valinta == 1:
+            print(laby1)
 
-        laby1 = '\n'.join(''.join(row) for row in labyrintti)
+            alku = datetime.datetime.now()
+            dead_end_filling_polku.dead_endit()
+            loppu = datetime.datetime.now()
 
-        print(laby1)
+            print(' ')
 
-        alku = datetime.datetime.now()
-        dead_end_filling_polku.dead_endit()
-        loppu = datetime.datetime.now()
-        print(f'Aikaa kului dead-end filling algoritmilla: {loppu-alku} sekunttia')
-    
-    if valinta == 2:
+            laby2 = '\n'.join(''.join(row) for row in dead_end_filling_polku.labyrintti)
 
-        alku2 = datetime.datetime.now()
-        tremaux_polku.ratkaisu()
-        loppu2 = datetime.datetime.now()
+            print(laby2)
+            print(f'Aikaa kului dead-end filling algoritmilla: {loppu-alku} sekunttia')
+        
+        if valinta == 2:
 
-        laby = '\n'.join(''.join(row) for row in tremaux_polku.labyrintti)
+            aloitus_x = int(input("Anna aloitus x-koordinaatti"))
+            aloitus_y = int(input("Anna aloitus y-koordinaatti"))
 
-        print(laby)
+            tremaux_polku = TremauxSolver(aloitus_x,aloitus_y)
 
-        print(tremaux_polku.polun_visualisointi())
+            alku2 = datetime.datetime.now()
+            tremaux_polku.ratkaisu()
+            loppu2 = datetime.datetime.now()
 
-        print(f'Aikaa kului tremaux algoritmilla: {loppu2-alku2} sekunttia')
-    
-    if valinta == 3:
+            laby = '\n'.join(''.join(row) for row in tremaux_polku.labyrintti)
 
-        alku = datetime.datetime.now()
-        dead_end_filling_polku.dead_endit()
-        loppu = datetime.datetime.now()
-        print(f'Aikaa kului dead-end filling algoritmilla: {loppu-alku} sekunttia')
+            print(laby)
 
-        alku2 = datetime.datetime.now()
-        tremaux_polku.ratkaisu()
-        loppu2 = datetime.datetime.now()
+            print(tremaux_polku.polun_visualisointi())
 
-        print(f'Aikaa kului tremaux algoritmilla: {loppu2-alku2} sekunttia')
+            print(f'Aikaa kului tremaux algoritmilla: {loppu2-alku2} sekunttia')
+        
+        if valinta == 0:
+            break
 
     
 if __name__ == "__main__":
