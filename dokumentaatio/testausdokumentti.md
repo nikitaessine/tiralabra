@@ -19,7 +19,7 @@ Lopuksi testataan, että jäljellä oleva polku on ainoa mahdollinen.
 
 ## Kattavuusraportti
 
-![testauskattavuus](https://github.com/nikitaessine/tiralabra/assets/54572118/34351fac-d60a-4e9a-a411-fe>
+![Screenshot from 2023-05-12 11-19-07](https://github.com/nikitaessine/tiralabra/assets/54572118/13bced1e-ccbb-4296-a1e0-9a5319c96081)
 
 Tremaux algoritmin testauskattavuuden tiputtaa metodi, joka visualisoi polun. Tätä osaa ei testata, koska se ei liity algoritmiin.
 
