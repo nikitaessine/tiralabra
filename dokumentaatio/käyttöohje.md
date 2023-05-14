@@ -18,3 +18,6 @@ Testit voidaan halutessaan suorittaa komennolla
 ```
 poetry run invoke test
 ```
+
+
+Tremaux algoritmita ajaessa, koordinaatit täytyy olla labyrintin sisällä.
