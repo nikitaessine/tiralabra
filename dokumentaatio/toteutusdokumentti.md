@@ -26,6 +26,8 @@ Tilavaatimus on myös O(N x M), koska algoritmi tallentaa kaikki solmut ja mahdo
 Kun annetaan molemmille algoritmeille samat lähtö- ja lopetuspisteet niin huomataan, että Tremaux on nopeampi. Nämä tosiaan käyttävät erilaisia labyrintteja.
 Tremauxilla on syklinen labyrintti ja Dead-end fillingilla on umpikujia. Tremauxin tehokkuus johtuu siitä, että se pyrkii minimoiimaan solmujen läpikäynti kertojen määrää. 
 
+Pylint arvosana: 9.07/10
+
 ## Parannuksia
 
 Molempien algoritmien kohdalla on mahdollisesti olemassa parempia toteutustapoja, jotka tehostaisivat niiden toimintaa. 
