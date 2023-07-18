@@ -6,15 +6,12 @@ def main():
 
 
     while True:
-        valinta = int(input("Haluatko ratkaista labyrintti dead-end filling algoritmilla vai Tremaux algoritmilla? (DEF(1),Tremaux(2), lopeta(0)"))
+        valinta = int(input("Haluatko ratkaista labyrintti dead-end filling algoritmilla vai Tremaux algoritmilla? (DEF(1),Tremaux(2), lopeta(0) "))
         
         if valinta == 1:
 
             dead_end_filling_polku = DeadEndFilling()
 
-            laby1 = '\n'.join(''.join(row) for row in dead_end_filling_polku.labyrintti)
-
-            print(laby1)
 
             alku = datetime.datetime.now()
             dead_end_filling_polku.dead_endit()
@@ -22,10 +19,7 @@ def main():
 
             print(' ')
 
-            laby2 = '\n'.join(''.join(row) for row in dead_end_filling_polku.labyrintti)
-
-            print(laby2)
-            print(f'Aikaa kului dead-end filling algoritmilla: {loppu-alku} sekunttia')
+            #print(f'Aikaa kului dead-end filling algoritmilla: {loppu-alku} sekunttia')
         
         if valinta == 2:
 
@@ -38,13 +32,9 @@ def main():
             tremaux_polku.ratkaisu()
             loppu2 = datetime.datetime.now()
 
-            laby = '\n'.join(''.join(row) for row in tremaux_polku.labyrintti)
+            
 
-            print(laby)
-
-            print(tremaux_polku.polun_visualisointi())
-
-            print(f'Aikaa kului tremaux algoritmilla: {loppu2-alku2} sekunttia')
+            #print(f'Aikaa kului tremaux algoritmilla: {loppu2-alku2} sekunttia')
         
         if valinta == 0:
             break

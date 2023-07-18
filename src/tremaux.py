@@ -1,3 +1,5 @@
+import time, random
+
 class TremauxSolver:
     """Luokka, joka ratkaisee labyrintin Tremaux'n algoritmilla."""
     def __init__(self, aloitus_x, aloitus_y):
@@ -5,17 +7,29 @@ class TremauxSolver:
         Args:
         labyrintti: Lista listoja, joka edustaa sokkeloa.
         """
-        self.labyrintti =  [['.', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                            ['.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
-                            ['#', '#', '.', '#', '#', '.', '#', '#', '.', '#'],
-                            ['#', '.', '.', '.', '#', '.', '.', '.', '#', '#'],
-                            ['#', '.', '#', '.', '.', '.', '#', '.', '#', '#'],
-                            ['#', '.', '#', '#', '#', '#', '#', '.', '#', '#'],
-                            ['#', '.', '.', '.', '.', '#', '.', '.', 'L', '#'],
-                            ['#', '#', '#', '.', '#', '#', '#', '#', '.', '#'],
-                            ['#', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
-                            ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']
-                            ]
+        self.labyrintti = [
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '#', '.', '.', '.', '.', '#'],
+    ['#', '#', '#', '.', '#', '#', '#', '.', '#', '#', '#', '.', '#', '.', '#', '#', '#', '.', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+    ['#', '.', '#', '.', '#', '#', '#', '#', '#', '.', '#', '#', '#', '#', '#', '#', '#', '#', '.', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+    ['#', '.', '#', '#', '#', '#', '#', '#', '#', '.', '#', '#', '#', '#', '.', '#', '#', '#', '.', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '.', '#', '#', '#', '.', '#', '#', '#', '.', '.', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+    ['#', '#', '.', '#', '#', '#', '.', '#', '#', '#', '#', '#', '#', '.', '#', '#', '#', '.', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '#'],
+    ['#', '#', '.', '#', '#', '#', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '.', '.', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '#'],
+    ['#', '#', '.', '#', '#', '#', '#', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+    ['#', '.', '.', '.', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+    ['#', '.', '#', '#', '#', '#', '#', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#'],
+    ['#', '#', '.', '#', '#', '#', '#', '.', '#', '.', '#', '#', '#', '#', '#', '.', '#', '.', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '.', '#'],
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#']
+]
 
 
         self.vierailtu = []
@@ -24,48 +38,70 @@ class TremauxSolver:
         self.aloitus_y = aloitus_y
         self.aloitus_koord = aloitus_x, aloitus_y
      
-    def ratkaisu(self):
-        """Ratkaistaan labyrintti ja palautetaan kuljettu polku."""
 
+    def polun_isualisointi(self):
+        """Askel askeleelta sokkelon visualisointi Tremaux-algoritmilla."""
+
+        for i in range(50):
+            print(" ") 
+
+        print("Visualisaatio:")
+        for i, row in enumerate(self.labyrintti):
+            for j, cell in enumerate(row):
+                if (i, j) == self.polku[-1]:
+                    print('●', end=' ')  
+                elif cell == '.' and (i, j) in self.vierailtu:
+                    if self.count_marks(i, j) == 1:
+                        print('•', end=' ')  
+                    
+                    elif self.count_marks(i, j) >= 2:
+                        print('x', end=' ')
+
+                    else:
+                        print('.', end=' ') 
+                else:
+                    print(cell, end=' ')
+            
+            print(" ")
+
+        time.sleep(0.1)
+
+    def ratkaisu(self):
         aloitus = self.hae_alku()
         self.polku.append(self.aloitus_koord)
         self.vierailtu.append(aloitus)
+        self.polun_isualisointi()
 
         while self.polku:
             nykyinen = self.polku[-1]
             naapurit = self.hae_vierailtavat_naapurit(nykyinen)
+
             if naapurit:
                 seuraava_ruutu = self.hae_seuraava_ruutu(nykyinen, naapurit)
-                if seuraava_ruutu:
-                    self.vierailtu.append(seuraava_ruutu)
-                    self.polku.append(seuraava_ruutu)
-                    if self.on_loppu(seuraava_ruutu):
-                        print('polku', self.polku)
-                        return self.polku
+                self.vierailtu.append(seuraava_ruutu)
+                self.polku.append(seuraava_ruutu)
+                self.polun_isualisointi()
+
+                if self.on_loppu(seuraava_ruutu):
+                    return self.polku
             else:
-                self.polku.pop()
+                if self.count_marks(nykyinen[0], nykyinen[1]) == 1:
+                    self.labyrintti[nykyinen[0]][nykyinen[1]] = 'x'
+                    self.polku.pop()
+                    self.polun_isualisointi()
+
+        return None
+
+
+    def count_marks(self, i, j):
+        """Laskee kuinka monta kertaa ollaan käyty tietyssä pisteessä."""
+        count = 0
+        for (x, y) in self.vierailtu:
+            if self.labyrintti[x][y] == '.' and x == i and y == j:
+                count += 1
+        return count
+
     
-    def polun_visualisointi(self):
-        """Visualisoidaan polku askel askeleelta
-
-        Returns:
-            merkkijono: ruudukko_str
-        """
-        max_x = max(koordinaatti[0] for koordinaatti in self.polku)
-        max_y = max(koordinaatti[1] for koordinaatti in self.polku)
-        
-
-        ruudukko = [['#'] * (max_x+2) for _ in range(max_y+2)]
-        
-        askeleet = 0
-        for x, y in self.polku:
-            askeleet += 1
-            ruudukko[x][y] = '.'
-            ruudukko_str = '\n'.join(''.join(rivi) for rivi in ruudukko)
-            print(f"Askel {askeleet}:\n{ruudukko_str}")
-       
-        return ruudukko_str
-
     def hae_alku(self):
         """Etsitään aloitusruutu labyrintista."""
         return (self.aloitus_x, self.aloitus_y)

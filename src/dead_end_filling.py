@@ -1,3 +1,5 @@
+import time
+
 class DeadEndFilling:
     """Luokka, joka hakee reitin labyrintissa Dead-end filling-algoritmilla"""
     def __init__(self):
@@ -45,18 +47,32 @@ class DeadEndFilling:
             viereiset_ruudut.append((rivi, sarake+1))
         return viereiset_ruudut
 
-    def dead_endit(self):
-        """Metodi, joka löytää kaikki dead endit"""
+    def polun_visualisointi(self):
+        """Visualisoi umikujien täyttöä ja jättää vain polun näkyville."""
 
+        for i in range(40):
+            print()
+
+        print("Visualisaatio:")
+        for row in self.labyrintti:
+            for cell in row:
+                print(cell, end=' ', flush=True)  # Add flush=True to force immediate output
+            print(' ')
+        
+
+    def dead_endit(self):
+        """Täyttää kaikki umpikujat kunnes jää vain polku näkyville."""
         while True:
             muutettu = False
-            for rivi in range(1, len(self.labyrintti)-1):
-                for sarake in range(1, len(self.labyrintti[0])-1):
+            for rivi in range(1, len(self.labyrintti) - 1):
+                for sarake in range(1, len(self.labyrintti[0]) - 1):
                     if self.labyrintti[rivi][sarake] == '.':
                         viereiset_ruudut = self.naapurit(rivi, sarake)
                         if len(viereiset_ruudut) == 1:
                             self.labyrintti[rivi][sarake] = '#'
                             muutettu = True
+                            self.polun_visualisointi()  
+                            time.sleep(0.1)  
             if not muutettu:
                 break
 
